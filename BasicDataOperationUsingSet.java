@@ -37,9 +37,9 @@ import java.util.Set;
  * 
  * <p>Змiннi екземпляра:</p>
  * <ul>
- *   <li>{@link #dateTimeValueToSearch} - Значення Long для пошуку.</li>
- *   <li>{@link #dateTimeArray} - Масив Long.</li>
- *   <li>{@link #dateTimeSet} - Множина Long.</li>
+ *   <li>{@link #longValueToSearch} - Значення Long для пошуку.</li>
+ *   <li>{@link #longArray} - Масив Long.</li>
+ *   <li>{@link #longSet} - Множина Long.</li>
  * </ul>
  * 
  * <p>Приклад використання:</p>
@@ -50,11 +50,11 @@ import java.util.Set;
  * </pre>
  */
 public class BasicDataOperationUsingSet {
-    static final String PATH_TO_DATA_FILE = "list/Long.data";
+    static final String PATH_TO_DATA_FILE = "list/long.data";
 
-    Long dateTimeValueToSearch;
-    Long[] dateTimeArray;
-    Set<Long> dateTimeSet = new HashSet<>();
+    Long longValueToSearch;
+    Long[] longArray;
+    Set<Long> longSet = new HashSet<>();
 
     public static void main(String[] args) {  
         BasicDataOperationUsingSet basicDataOperationUsingSet = new BasicDataOperationUsingSet(args);
@@ -72,10 +72,10 @@ public class BasicDataOperationUsingSet {
         }
 
         String valueToSearch = args[0];
-        this.dateTimeValueToSearch = Long.parseLong(valueToSearch);
+        this.longValueToSearch = Long.parseLong(valueToSearch);
 
-        dateTimeArray = Utils.readArrayFromFile(PATH_TO_DATA_FILE);
-        dateTimeSet = new HashSet<>(Arrays.asList(dateTimeArray));
+        longArray = Utils.readArrayFromFile(PATH_TO_DATA_FILE);
+        longSet = new HashSet<>(Arrays.asList(longArray));
     }
 
     /**
@@ -99,7 +99,7 @@ public class BasicDataOperationUsingSet {
         compareArrayAndSet();
 
         // записати вiдсортований масив в окремий файл
-        Utils.writeArrayToFile(dateTimeArray, PATH_TO_DATA_FILE + ".sorted");
+        Utils.writeArrayToFile(longArray, PATH_TO_DATA_FILE + ".sorted");
     }
 
     /**
@@ -109,25 +109,25 @@ public class BasicDataOperationUsingSet {
     private void sortArray() {
         long startTime = System.nanoTime();
 
-        Arrays.sort(dateTimeArray);
+        Arrays.sort(longArray);
 
-        Utils.printOperationDuration(startTime, "сортування масиву дати i часу");
+        Utils.printOperationDuration(startTime, "сортування масиву чисел");
     }
 
     /**
-     * Метод для пошуку значення в масивi дати i часу.
+     * Метод для пошуку значення в масивi чисел.
      */
     private void searchArray() {
         long startTime = System.nanoTime();
 
-        int index = Arrays.binarySearch(this.dateTimeArray, dateTimeValueToSearch);
+        int index = Arrays.binarySearch(this.longArray, longValueToSearch);
 
-        Utils.printOperationDuration(startTime, "пошук в масивi дати i часу");
+        Utils.printOperationDuration(startTime, "пошук в масивi чисел");
 
         if (index >= 0) {
-            System.out.println("Значення '" + dateTimeValueToSearch + "' знайдено в масивi за iндексом: " + index);
+            System.out.println("Значення '" + longValueToSearch + "' знайдено в масивi за iндексом: " + index);
         } else {
-            System.out.println("Значення '" + dateTimeValueToSearch + "' в масивi не знайдено.");
+            System.out.println("Значення '" + longValueToSearch + "' в масивi не знайдено.");
         }
     }
 
@@ -135,19 +135,19 @@ public class BasicDataOperationUsingSet {
      * Знаходить мiнiмальне та максимальне значення в масивi Long.
      */
     private void findMinAndMaxInArray() {
-        if (dateTimeArray == null || dateTimeArray.length == 0) {
+        if (longArray == null || longArray.length == 0) {
             System.out.println("Масив порожнiй або не iнiцiалiзований.");
             return;
         }
 
         long startTime = System.nanoTime();
 
-        Long min = dateTimeArray[0];
-        Long max = dateTimeArray[0];
+        Long min = longArray[0];
+        Long max = longArray[0];
 
-        Utils.printOperationDuration(startTime, "пошук мiнiмальної i максимальної дати i часу в масивi");
+        Utils.printOperationDuration(startTime, "пошук мiнiмальної i максимальної чисел в масивi");
 
-        for (Long longValue : dateTimeArray) {
+        for (Long longValue : longArray) {
             if (longValue < min) {
                 min = longValue;
             }
@@ -161,19 +161,19 @@ public class BasicDataOperationUsingSet {
     }
 
     /**
-     * Метод для пошуку значення в множинi дати i часу.
+     * Метод для пошуку значення в множинi чисел.
      */
     private void searchSet() {
         long startTime = System.nanoTime();
 
-        boolean isFound = this.dateTimeSet.contains(dateTimeValueToSearch);
+        boolean isFound = this.longSet.contains(longValueToSearch);
 
-        Utils.printOperationDuration(startTime, "пошук в HashSet дати i часу");
+        Utils.printOperationDuration(startTime, "пошук в HashSet чисел");
 
         if (isFound) {
-            System.out.println("Значення '" + dateTimeValueToSearch + "' знайдено в HashSet");
+            System.out.println("Значення '" + longValueToSearch + "' знайдено в HashSet");
         } else {
-            System.out.println("Значення '" + dateTimeValueToSearch + "' в HashSet не знайдено.");
+            System.out.println("Значення '" + longValueToSearch + "' в HashSet не знайдено.");
         }
     }
 
@@ -181,17 +181,17 @@ public class BasicDataOperationUsingSet {
      * Знаходить мiнiмальне та максимальне значення в множинi Long.
      */
     private void findMinAndMaxInSet() {
-        if (dateTimeSet == null || dateTimeSet.isEmpty()) {
+        if (longSet == null || longSet.isEmpty()) {
             System.out.println("HashSet порожнiй або не iнiцiалiзований.");
             return;
         }
 
         long startTime = System.nanoTime();
 
-        Long min = Collections.min(dateTimeSet);
-        Long max = Collections.max(dateTimeSet);
+        Long min = Collections.min(longSet);
+        Long max = Collections.max(longSet);
 
-        Utils.printOperationDuration(startTime, "пошук мiнiмальної i максимальної дати i часу в HashSet");
+        Utils.printOperationDuration(startTime, "пошук мiнiмальної i максимальної чисел в HashSet");
 
         System.out.println("Мiнiмальне значення в HashSet: " + min);
         System.out.println("Максимальне значення в HashSet: " + max);
@@ -201,12 +201,12 @@ public class BasicDataOperationUsingSet {
      * Порiвнює елементи масиву та множини.
      */
     private void compareArrayAndSet() {
-        System.out.println("Кiлькiсть елементiв в масивi: " + dateTimeArray.length);
-        System.out.println("Кiлькiсть елементiв в HashSet: " + dateTimeSet.size());
+        System.out.println("Кiлькiсть елементiв в масивi: " + longArray.length);
+        System.out.println("Кiлькiсть елементiв в HashSet: " + longSet.size());
 
         boolean allElementsMatch = true;
-        for (Long dateTime : dateTimeArray) {
-            if (!dateTimeSet.contains(dateTime)) {
+        for (Long longValue : longArray) {
+            if (!longSet.contains(longValue)) {
                 allElementsMatch = false;
                 break;
             }
@@ -265,13 +265,13 @@ class Utils {
     /**
      * Записує масив об'єктiв Long у файл.
      * 
-     * @param dateTimeArray Масив об'єктiв Long.
+     * @param longArray Масив об'єктiв Long.
      * @param pathToFile Шлях до файлу для запису.
      */
-    static void writeArrayToFile(Long[] dateTimeArray, String pathToFile) {
+    static void writeArrayToFile(Long[] longArray, String pathToFile) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathToFile))) {
-            for (Long dateTime : dateTimeArray) {
-                writer.write(dateTime.toString());
+            for (Long longValue : longArray) {
+                writer.write(longValue.toString());
                 writer.newLine();
             }
         } catch (IOException e) {
